@@ -4,21 +4,37 @@ var navList = document.getElementById("navbar__list"),
 
 function creatingNavBarAuto() {
     "use strict";
-    
+
     let section,
         sectionNum = 1;
-    for (section of sections){
-        //let id = section.getAttribute('id');
+    for (section of sections) {
+
         let sectionName = section.getAttribute('data-nav'),
-            li = document.createElement("li");
-        li.textContent = sectionName;
+            li = document.createElement("li"),
+            a = document.createElement("a"),
+            id = section.getAttribute('id');
         li.setAttribute('id', sectionNum);
         sectionNum = sectionNum + 1;
-        navList.append(li);}
-        
+        a.textContent = sectionName;
+        a.setAttribute('href', "#" + id);
+        a.setAttribute('class', 'aSectionToBeScrolledTo');
+        li.appendChild(a);
+        navList.appendChild(li);
+        a.addEventListener('click', function () {
+            console.log(a.getAttribute("id"))
+        })
+    }
 }
 creatingNavBarAuto();
-function scrolling (){document.getElementById('section3').scrollIntoView(true);}
+/*let scrollSecS = document.querySelectorAll('.aSectionToBeScrolledTo'),
+    scrollSec;
+console.log(scrollSecs);
+for (scrollSec of scrollSecS) {
+    scrollSec.addEventListener('click', function () {
+        console.log(scrollSec.getAttribute("id"));
+    })
+}*/
+//function scrolling (){document.getElementById('section3').scrollIntoView(true);}
 
 //scrolling();
 
@@ -26,30 +42,30 @@ function scrolling (){document.getElementById('section3').scrollIntoView(true);}
 //function creatingAndAddingNavLIs ()
 
 /**
- * 
+ *
  * Manipulating the DOM exercise.
  * Exercise programmatically builds navigation,
  * scrolls to anchors from navigation,
  * and highlights section in viewport upon scrolling.
- * 
+ *
  * Dependencies: None
- * 
+ *
  * JS Version: ES2015/ES6
- * 
+ *
  * JS Standard: ESlint
- * 
+ *
 */
 
 /**
  * Define Global Variables
- * 
+ *
 */
 
 
 /**
  * End Global Variables
  * Start Helper Functions
- * 
+ *
 */
 
 
@@ -57,7 +73,7 @@ function scrolling (){document.getElementById('section3').scrollIntoView(true);}
 /**
  * End Helper Functions
  * Begin Main Functions
- * 
+ *
 */
 
 // build the nav
@@ -72,7 +88,7 @@ function scrolling (){document.getElementById('section3').scrollIntoView(true);}
 /**
  * End Main Functions
  * Begin Events
- * 
+ *
 */
 
 // Build menu 
