@@ -1,7 +1,7 @@
 
 var navList = document.getElementById("navbar__list"),
     sections = document.getElementsByTagName("section"),
-    linkOfSectionToScrollTo;
+    linksOfSectionsToScrollTo;
 
 function creatingNavBarAuto() {
     "use strict";
@@ -42,11 +42,11 @@ const observer = new IntersectionObserver(function
     entries.forEach(entry => {
         if (!entry.isIntersecting) {
             entry.target.classList.remove('your-active-class')
-            console.log("active class removed from " + entry.target.getAttribute("id"))
+            // console.log("active class removed from " + entry.target.getAttribute("id"))
             return;
         }
         entry.target.classList.add('your-active-class')
-        console.log("active class added to " + entry.target.getAttribute('id'));
+        // console.log("active class added to " + entry.target.getAttribute('id'));
     });
 }
     , options);
@@ -56,28 +56,44 @@ sectionsToObserve.forEach(section => {
 
 
 
+//smooth scrolling
+linksOfSectionsToScrollTo = document.querySelectorAll('.aSectionToBeScrolledTo');
+linksOfSectionsToScrollTo.forEach(link => {
+    link.addEventListener('click', function (event) {
+        event.preventDefault();
+        document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: "smooth" });
+
+    });
+})
+
+
+//console.log(linksOfSectionsToScrollTo);
+
+
+
 
 
 
 
 
 /*function scroll() {
-    linkOfSectionToScrollTo = document.querySelectorAll('.aSectionToBeScrolledTo');
-    console.log(linkOfSectionToScrollTo)
-    for (link of linkOfSectionToScrollTo) {
+    linksOfSectionsToScrollTo = document.querySelectorAll('.aSectionToBeScrolledTo');
+    console.log(linksOfSectionsToScrollTo)
+    for (link of linksOfSectionsToScrollTo) {
         let elmthref = link.getAttribute('href');
         console.log(elmthref);
         //element_to_scroll_to.scrollIntoView();
     }
 }
 
-//scroll();
+scroll();
 var link;
 linkOfSectionToScrollTo = document.querySelectorAll('.aSectionToBeScrolledTo');
-for (i = 0; i > linkOfSectionToScrollTo.length, i += 1;) {
+forEach {
     link = linkOfSectionToScrollTo[i];
 
     link.addEventListener('click', function () {
+        pr
         console.log(link);
         window.scrollTo(0, link.getBoundingClientRect().top);
     });
