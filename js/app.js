@@ -42,11 +42,11 @@ const observer = new IntersectionObserver(function
     entries.forEach(entry => {
         if (!entry.isIntersecting) {
             entry.target.classList.remove('your-active-class')
-            console.log("active class removed from" + entry.target)
+            console.log("active class removed from " + entry.target.getAttribute("id"))
             return;
         }
         entry.target.classList.add('your-active-class')
-        console.log("active class added to" + entry.target);
+        console.log("active class added to " + entry.target.getAttribute('id'));
     });
 }
     , options);
