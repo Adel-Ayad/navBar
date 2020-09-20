@@ -35,7 +35,7 @@ const sectionsToObserve = document.querySelectorAll("section")
 const options = {                                                                     // select the proparties & margins of the virtual viewPort
     root: null,
     threshold: 0.2,
-    rootMargin: "-170px 0px -170px 0px"
+    rootMargin: "-195px 0px -195px 0px"
 };
 const observer = new IntersectionObserver(function                                                      //Make the Observer Function
     (entries, observer) {
