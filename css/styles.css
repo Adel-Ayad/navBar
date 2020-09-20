@@ -64,7 +64,21 @@ section {
 /* ---- Module Rules ---- */
 
 /* Navigation Styles*/
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+}
+.logo h1{
+    text-transform: capitalize;
+    font-size: 2em;
+    margin: 0;
+    color: black;
+}
+
 .navbar__menu ul {
+    display: flex;
     padding-left: 0;
     text-align: right;
     list-style-type: none;
@@ -74,6 +88,7 @@ section {
 }
 
 .navbar__menu li {
+    font-family: 'Poppins', sans-serif;
     display: inline-block;
     padding: 15px;
     color: black;
@@ -85,6 +100,7 @@ section {
     font-weight: bold;
     text-decoration: none;
     color: #000;
+    letter-spacing: 2px;
 }
 
 .navbar__menu .menu__link:hover {
@@ -93,6 +109,67 @@ section {
     transition: ease 0.3s all;
 }
 
+.menu__lines{
+    display: none;
+    cursor: pointer;
+}
+.menu__lines div{
+    width: 25px;
+    height: 3px;
+    margin: 5px;
+    background-color: #000;
+    transition: all 0.4s ease;
+}
+
+/*A Compatible Style for Mobile Devices*/
+@media screen and (max-width:768px){
+    .navbar__list {
+        position: absolute;
+        right: 0px;
+        height: 92vh;
+        width: 50%;
+        top: 8vh;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+        
+    }
+    .menu__link {
+        opacity: 0;
+    }
+    .menu__lines {
+        display: block;
+    }
+    
+}
+.show__menu {
+    transform: translateX(0%);
+}
+.active__menu__lines .line_1{
+    transform: rotate(-45deg) translate(-5px,6px) ;
+}
+.active__menu__lines .line_2{
+    opacity: 0;
+}
+.active__menu__lines .line_3{
+    transform: rotate(45deg) translate(-5px,-6px);}
+
+
+@keyframes menu__items__fade{
+    from{
+        opacity: 0;
+        transform: translateX(50%);
+    }
+    to{
+        opacity: 100;
+        transform: translateX(0%);
+    }
+}
+
+/*End of the Mobile Style*/
 /* Header Styles */
 .page__header {
     background: #fff;
@@ -197,18 +274,23 @@ section:nth-of-type(3n + 1) .landing__container::after {
 
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */
-/* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
-section.your-active-class {
+/* Note:.active-section class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
+a.active-link{
+    background: rgb(109, 109, 109);
+    color: #fff;
+    transition: ease 0.5s all;
+}
+section.active-section {
     background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 300%, rgba(0, 0, 0, 0) 700%);
 }
 
-section.your-active-class .landing__container::before {
+section.active-section .landing__container::before {
     opacity: 1;
     animation: rotate 4s linear 0s infinite forwards;
 }
 
-section.your-active-class .landing__container::after {
+section.active-section .landing__container::after {
     opacity: 1;
     animation: rotate 5s linear 0s infinite forwards reverse;
 }
