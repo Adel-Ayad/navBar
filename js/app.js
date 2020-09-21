@@ -1,17 +1,28 @@
+/**
+ *
+ * Manipulating the DOM exercise.
+ * Exercise programmatically builds navigation,
+ * scrolls to anchors from navigation,
+ * and highlights section in viewport upon scrolling.
+ *
+ * Dependencies: None
+ *
+ * JS Version: ES2015/ES6
+ *
+ * JS Standard: ESlint
+ *
+*/
 
-var navList = document.getElementById("navbar__list"),
-    sections = document.getElementsByTagName("section"),
-    linksOfSectionsToScrollTo;
-const logo = document.querySelector('.logo');
-
-// automaticallyl create an anchor tag inside a list item tag and append the to the nav list
+// AUTOMATICALLYL CREATE AN ANCHOR TAG INSIDE A LIST ITEM TAG AND APPEND THE TO THE NAV LIST
 function creatingNavBarAuto() {
     "use strict";
 
-    let section,
-        sectionNum = 1;
-    for (section of sections) {
+    const navList = document.getElementById("navbar__list"),
+        sections = document.getElementsByTagName("section");
+    let sectionNum = 1,
+        section;
 
+    for (section of sections) {
         let sectionName = section.getAttribute('data-nav'),
             li = document.createElement("li"),                              // for each section create a list item
             a = document.createElement("a"),                                // for each section create an anchor
@@ -29,106 +40,81 @@ function creatingNavBarAuto() {
     }
 }
 creatingNavBarAuto();
-// highlight the section that is on the screen view and highlight it equivelent nav item (link)
 
-const sectionsToObserve = document.querySelectorAll("section")
-const options = {                                                                     // select the proparties & margins of the virtual viewPort
-    root: null,
-    threshold: 0.2,
-    rootMargin: "-200px 0px -200px 0px"
-};
-const observer = new IntersectionObserver(function                                                      //Make the Observer Function
-    (entries, observer) {
 
-    entries.forEach(entry => {
-        if (!entry.isIntersecting) {                                                                     //if sections are not in the viewPort
-            entry.target.classList.remove('active-section');                                             //remove the highlight from them
-            // console.log("active class removed from " + entry.target.getAttribute("id"))
-            document.querySelector(`.${entry.target.getAttribute("id")}`).classList.remove('active-link'); //and from their equivelent links
-            return;
-        }
-        else {                                                                                              //if section is in the viewPort
-            entry.target.classList.add('active-section');                                                //add the highlight to them
-            // console.log("active class added to " + entry.target.getAttribute('id'));
-            document.querySelector(`.${entry.target.getAttribute("id")}`).classList.add('active-link');    //and to their equivelent links
-        }
+// HIGHLIGHT THE SECTION THAT IS ON THE SCREEN VIEW AND HIGHLIGHT IT EQUIVELENT NAV ITEM (LINK)
+function highlightSection() {
+    const sectionsToObserve = document.querySelectorAll("section");
+    const options = {                                                                     // select the proparties & margins of the virtual viewPort
+        root: null,
+        threshold: 0.2,
+        rootMargin: "-200px 0px -200px 0px"
+    };
+    const observer = new IntersectionObserver(function                                                      //Make the Observer Function
+        (entries) {
+
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {                                                                     //if sections are not in the viewPort
+                entry.target.classList.remove('active-section');                                             //remove the highlight from them
+                // console.log("active class removed from " + entry.target.getAttribute("id"))
+                document.querySelector(`.${entry.target.getAttribute("id")}`).classList.remove('active-link'); //and from their equivelent links
+                return;
+            }
+            else {                                                                                              //if section is in the viewPort
+                entry.target.classList.add('active-section');                                                //add the highlight to them
+                // console.log("active class added to " + entry.target.getAttribute('id'));
+                document.querySelector(`.${entry.target.getAttribute("id")}`).classList.add('active-link');    //and to their equivelent links
+            }
+        });
+    }, options);
+    sectionsToObserve.forEach(section => {
+        observer.observe(section);                                         //Call the Observer Function To Observe each Section
     });
 }
-    , options);
-sectionsToObserve.forEach(section => {
-    observer.observe(section);                                                  //Call the Observer Function
-});
+
+highlightSection();
 
 
-
-//smooth scrolling
+//SMOOTH SCROLLING
 function smoothScroll() {
-    //Hit any item in the Nav Bar to Scroll to its Equivelent Section
-    linksOfSectionsToScrollTo = document.querySelectorAll('.menu__link');
-    linksOfSectionsToScrollTo.forEach(link => {
+    //HIT ANY ITEM IN THE NAV BAR TO SCROLL TO ITS EQUIVELENT SECTION
+    function sectionScroll() {
 
-        link.addEventListener('click', function (event) {
-            event.preventDefault();                                        // Prventing if the link hit , jump to the equivelent section
-            const equivelentSection = document.querySelector(link.getAttribute('href'));
+        const linksOfSectionsToScrollTo = document.querySelectorAll('.menu__link');
+        linksOfSectionsToScrollTo.forEach(link => {
 
-            equivelentSection.scrollIntoView({ behavior: "smooth" }); //scroll instead
-            /*  scroller = setInterval(function scroller() {
- 
-            const xCord = equivelentSection.getBoundingClientRect().x;
-            const yCord = equivelentSection.getBoundingClientRect().y;
-            let intY = window.pageYOffset;
- 
-                 if (yCord < window.pageYOffset) {
-                     intY -= 1;
-                     window.scrollTo(
-                         xCord,
-                         intY,
- 
-                     );
-                     return;
-                 }
-                 if (yCord > window.pageYOffset) {
-                     intY += 1;
-                     window.scrollTo(
-                         xCord,
-                         intY,
- 
-                     );
-                     return;
-                 }
- 
-                
-             }
-                 , 1); */
-            /* setInterval(scroller);
-            function clsInterval() {
-                if (yCord == window.pageYOffset) {
-                    clearInterval(scroller);
-                    return;
-                }
-            }
-            clsInterval(); */
+            link.addEventListener('click', function (event) {
+                event.preventDefault();                                        // Prventing if the link hit , jump to the equivelent section
+                const equivelentSection = document.querySelector(link.getAttribute('href'));
+
+                equivelentSection.scrollIntoView({ behavior: "smooth" }); //scroll instead
+
+            });
+
+
         });
+    }
 
-
-    })
-
-    //Hit the Logo to scroll smoothly to the Top of the Page
-    logo.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
+    //HIT THE LOGO TO SCROLL SMOOTHLY TO THE TOP OF THE PAGE
+    function logoPageScroll() {
+        const logo = document.querySelector('.logo');
+        logo.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
         });
-    })
+    }
+
+    sectionScroll();
+    logoPageScroll();
+
+
 }
-
 smoothScroll();
 
-
-
-
-//Making a Compatible nav menu to the Moblile Style
+//MAKING A COMPATIBLE NAV MENU TO THE MOBLILE STYLE
 function menuSlide() {
     const menuLines = document.querySelector('.menu__lines');
     const menu = document.querySelector('.navbar__list');
@@ -144,7 +130,7 @@ function menuSlide() {
         //animate menu items
         menuItems.forEach((item, index) => {
             if (item.style.animation) {
-                item.style.animation = ``                                 // if items is already appeared (animated in)=> make it disappear
+                item.style.animation = ``;                                // if items is already appeared (animated in)=> make it disappear
             }
             else {
                 item.style.animation = `menu__items__fade 0.5s ease forwards ${index / 7 + 0.5}s`; // if items is hiddens, apears items by animated way with @keyframe which is coded in css file
@@ -162,7 +148,7 @@ function menuSlide() {
             menuLines.classList.toggle('active__menu__lines');           //disanimate item menu button (burger button)
             menuItems.forEach((item) => {                                //disanimate(hide) items
                 if (item.style.animation) {
-                    item.style.animation = ``
+                    item.style.animation = ``;
                 }
 
             });
@@ -173,110 +159,7 @@ function menuSlide() {
 menuSlide();
 
 
-//console.log(linksOfSectionsToScrollTo);
 
 
-
-
-
-
-
-
-/*function scroll() {
-    linksOfSectionsToScrollTo = document.querySelectorAll('.menu__link');
-    console.log(linksOfSectionsToScrollTo)
-    for (link of linksOfSectionsToScrollTo) {
-        let elmthref = link.getAttribute('href');
-        console.log(elmthref);
-        //element_to_scroll_to.scrollIntoView();
-    }
-}
-
-scroll();
-var link;
-linkOfSectionToScrollTo = document.querySelectorAll('.menu__link');
-forEach {
-    link = linkOfSectionToScrollTo[i];
-
-    link.addEventListener('click', function () {
-        pr
-        console.log(link);
-        window.scrollTo(0, link.getBoundingClientRect().top);
-    });
-}
-console.log(linkOfSectionToScrollTo);*/
-
-
-
-/*let scrollSecS = document.querySelectorAll('.menu__link'),
-    scrollSec;
-console.log(scrollSecs);
-for (scrollSec of scrollSecS) {
-    scrollSec.addEventListener('click', function () {
-        console.log(scrollSec.getAttribute("id"));
-    })
-}*/
-//function scrolling (){document.getElementById('section3').scrollIntoView(true);}
-
-//scrolling();
-
-
-//function creatingAndAddingNavLIs ()
-
-/**
- *
- * Manipulating the DOM exercise.
- * Exercise programmatically builds navigation,
- * scrolls to anchors from navigation,
- * and highlights section in viewport upon scrolling.
- *
- * Dependencies: None
- *
- * JS Version: ES2015/ES6
- *
- * JS Standard: ESlint
- *
-*/
-
-/**
- * Define Global Variables
- *
-*/
-
-
-/**
- * End Global Variables
- * Start Helper Functions
- *
-*/
-
-
-
-/**
- * End Helper Functions
- * Begin Main Functions
- *
-*/
-
-// build the nav
-
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- *
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
 
 

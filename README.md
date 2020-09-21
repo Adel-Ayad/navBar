@@ -1,17 +1,35 @@
+
 # Landing Page Project
 
 ## Table of Contents
+1. css\ styles.css  
 
-* [Instructions](#instructions)
+2. index.html
 
-## Instructions
+3. js\ app.js
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+4. README.md
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Description
+The project is  to make a dynamic, adaptive and interactive instead of a static, non-interactive version of the project.
+Disclaimer:
+This project based on the starter code from Udicity Web Professoinal Track.
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+## Landing Page Behavior
 
-ال Project title
-ال Description
-ال Methods used
+### Main Required Features
+1. Navigation is built dynamically as an unordered list.
+
+2. It should be clear which section is being viewed while scrolling through the page.
+
+3. When clicking an item from the navigation menu, the link should scroll to the appropriate section.
+
+### Extra Features
+1. An active state to the navigation items when a section is in the viewport.
+
+2. Make navigation bar collapsible. (Compatible with Phone Browsering).
+ 
+ 3. When clicking page logo in the navigation bae , scrolling to the Top of the Page.
+
+
+
