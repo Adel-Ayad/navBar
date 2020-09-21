@@ -35,7 +35,7 @@ const sectionsToObserve = document.querySelectorAll("section")
 const options = {                                                                     // select the proparties & margins of the virtual viewPort
     root: null,
     threshold: 0.2,
-    rootMargin: "-195px 0px -195px 0px"
+    rootMargin: "-200px 0px -200px 0px"
 };
 const observer = new IntersectionObserver(function                                                      //Make the Observer Function
     (entries, observer) {
@@ -66,15 +66,56 @@ function smoothScroll() {
     //Hit any item in the Nav Bar to Scroll to its Equivelent Section
     linksOfSectionsToScrollTo = document.querySelectorAll('.menu__link');
     linksOfSectionsToScrollTo.forEach(link => {
+
         link.addEventListener('click', function (event) {
             event.preventDefault();                                        // Prventing if the link hit , jump to the equivelent section
-            document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: "smooth" }); //scroll instead
+            const equivelentSection = document.querySelector(link.getAttribute('href'));
 
+            equivelentSection.scrollIntoView({ behavior: "smooth" }); //scroll instead
+            /*  scroller = setInterval(function scroller() {
+ 
+            const xCord = equivelentSection.getBoundingClientRect().x;
+            const yCord = equivelentSection.getBoundingClientRect().y;
+            let intY = window.pageYOffset;
+ 
+                 if (yCord < window.pageYOffset) {
+                     intY -= 1;
+                     window.scrollTo(
+                         xCord,
+                         intY,
+ 
+                     );
+                     return;
+                 }
+                 if (yCord > window.pageYOffset) {
+                     intY += 1;
+                     window.scrollTo(
+                         xCord,
+                         intY,
+ 
+                     );
+                     return;
+                 }
+ 
+                
+             }
+                 , 1); */
+            /* setInterval(scroller);
+            function clsInterval() {
+                if (yCord == window.pageYOffset) {
+                    clearInterval(scroller);
+                    return;
+                }
+            }
+            clsInterval(); */
         });
+
+
     })
+
     //Hit the Logo to scroll smoothly to the Top of the Page
     logo.addEventListener('click', () => {
-        window.scroll({
+        window.scrollTo({
             top: 0,
             left: 0,
             behavior: 'smooth'
@@ -83,6 +124,7 @@ function smoothScroll() {
 }
 
 smoothScroll();
+
 
 
 
