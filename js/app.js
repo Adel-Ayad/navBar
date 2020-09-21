@@ -1,17 +1,16 @@
-/**
- *
- * Manipulating the DOM exercise.
- * Exercise programmatically builds navigation,
- * scrolls to anchors from navigation,
- * and highlights section in viewport upon scrolling.
- *
- * Dependencies: None
- *
- * JS Version: ES2015/ES6
- *
- * JS Standard: ESlint
- *
-*/
+
+
+function mainFunction() {
+    creatingNavBarAuto();
+    highlightSection();
+    sectionScroll();
+    logoPageScroll();
+    menuSlide();
+}
+mainFunction();
+
+
+
 
 // AUTOMATICALLYL CREATE AN ANCHOR TAG INSIDE A LIST ITEM TAG AND APPEND THE TO THE NAV LIST
 function creatingNavBarAuto() {
@@ -39,7 +38,7 @@ function creatingNavBarAuto() {
 
     }
 }
-creatingNavBarAuto();
+
 
 
 // HIGHLIGHT THE SECTION THAT IS ON THE SCREEN VIEW AND HIGHLIGHT IT EQUIVELENT NAV ITEM (LINK)
@@ -72,47 +71,36 @@ function highlightSection() {
     });
 }
 
-highlightSection();
-
-
 //SMOOTH SCROLLING
-function smoothScroll() {
-    //HIT ANY ITEM IN THE NAV BAR TO SCROLL TO ITS EQUIVELENT SECTION
-    function sectionScroll() {
+//HIT ANY ITEM IN THE NAV BAR TO SCROLL TO ITS EQUIVELENT SECTION
+function sectionScroll() {
 
-        const linksOfSectionsToScrollTo = document.querySelectorAll('.menu__link');
-        linksOfSectionsToScrollTo.forEach(link => {
+    const linksOfSectionsToScrollTo = document.querySelectorAll('.menu__link');
+    linksOfSectionsToScrollTo.forEach(link => {
 
-            link.addEventListener('click', function (event) {
-                event.preventDefault();                                        // Prventing if the link hit , jump to the equivelent section
-                const equivelentSection = document.querySelector(link.getAttribute('href'));
+        link.addEventListener('click', function (event) {
+            event.preventDefault();                                        // Prventing if the link hit , jump to the equivelent section
+            const equivelentSection = document.querySelector(link.getAttribute('href'));
 
-                equivelentSection.scrollIntoView({ behavior: "smooth" }); //scroll instead
-
-            });
-
+            equivelentSection.scrollIntoView({ behavior: "smooth" }); //scroll instead
 
         });
-    }
-
-    //HIT THE LOGO TO SCROLL SMOOTHLY TO THE TOP OF THE PAGE
-    function logoPageScroll() {
-        const logo = document.querySelector('.logo');
-        logo.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
-
-    sectionScroll();
-    logoPageScroll();
 
 
+    });
 }
-smoothScroll();
+//HIT THE LOGO TO SCROLL SMOOTHLY TO THE TOP OF THE PAGE
+function logoPageScroll() {
+    const logo = document.querySelector('.logo');
+    logo.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
 
 //MAKING A COMPATIBLE NAV MENU TO THE MOBLILE STYLE
 function menuSlide() {
@@ -156,7 +144,7 @@ function menuSlide() {
         });
     });
 }
-menuSlide();
+
 
 
 
